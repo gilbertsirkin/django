@@ -1,0 +1,98 @@
+services:
+  - type: web
+    name: wolvcapital-api
+    runtime: python3
+    healthCheckPath: /healthz/
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: bash start.sh
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "0"
+      - key: DJANGO_SETTINGS_MODULE
+        value: "wolvcapital.settings"
+      - key: WEB_CONCURRENCY
+        value: "2"
+      - key: RENDER_EXTERNAL_URL
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wolvcapital-db
+          property: connectionString
+      - key: CORS_ALLOWED_ORIGINS
+        # Production domains
+        value: "https://wolvcapital.com,https://www.wolvcapital.com,https://api.wolvcapital.com"
+      - key: CSRF_TRUSTED_ORIGINS
+        # Must match CORS_ALLOWED_ORIGINS
+        value: "https://wolvcapital.com,https://www.wolvcapital.com,https://api.wolvcapital.com"
+      - key: CUSTOM_DOMAIN
+        # Inform Django about custom hostnames (API + public site)
+        value: "wolvcapital.com,api.wolvcapital.com"
+      - key: ALLOWED_HOSTS
+        # Custom domain + Render default URL
+        value: "api.wolvcapital.com,wolvcapital-api.onrender.com"
+      - key: PUBLIC_SITE_URL
+        # Frontend domain used in customer-facing emails
+        value: "https://wolvcapital.com"
+      - key: ADMIN_SITE_URL
+        # Backend/admin domain for staff tools
+        value: "https://api.wolvcapital.com"
+      - key: FRONTEND_URL
+        # Next.js frontend domain for Django redirects
+        value: "https://wolvcapital.com"
+      - key: DEFAULT_FROM_EMAIL
+        value: "WolvCapital <support@wolvcapital.com>"
+      - key: RESEND_API_KEY
+        # Store your Resend API key (re_XXXX). Set in Render dashboard.
+        sync: false
+      - key: EMAIL_BACKEND
+        value: "core.email_backends.resend.ResendEmailBackend"
+      # Security flags for production deployment
+      - key: CREATE_INITIAL_ADMIN
+        # Set to "1" only for initial deployment, then remove/set to "0"
+        value: "0"
+      - key: INITIAL_ADMIN_EMAIL
+        # Only used when CREATE_INITIAL_ADMIN=1
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD
+        # Only used when CREATE_INITIAL_ADMIN=1 - set strong password!
+        sync: false
+      - key: SETUP_CRYPTO_WALLETS
+        # Set to "1" only when you have real wallet addresses configured
+        value: "0"
+      - key: BTC_WALLET_ADDRESS
+        # Real BTC wallet address for deposits
+        sync: false
+      - key: ETH_WALLET_ADDRESS
+        # Real ETH wallet address for deposits
+        sync: false
+      - key: USDT_WALLET_ADDRESS
+        # Real USDT wallet address for deposits
+        sync: false
+      - key: USDC_WALLET_ADDRESS
+        # Real USDC wallet address for deposits
+        sync: false
+
+databases:
+  - name: wolvcapital-db
+    databaseName: wolvcapital
+    user: wolvcapital
+
+# Scheduled cron jobs (Render cron)
+cron:
+  - name: fetch-mail
+    schedule: "0 * * * *" # hourly
+    command: "python manage.py fetch_mail --limit 100"
+    env:
+      - key: DJANGO_SETTINGS_MODULE
+        value: "wolvcapital.settings"
+  - name: drip-campaign
+    schedule: "0 9 * * *" # daily at 09:00 UTC
+    command: "python manage.py drip_campaign --send"
+    env:
+      - key: DJANGO_SETTINGS_MODULE
+        value: "wolvcapital.settings"
