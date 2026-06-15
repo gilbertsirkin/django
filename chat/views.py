@@ -278,8 +278,9 @@ def get_messages(request):
 
 
 @csrf_exempt
-@require_POST
 def request_human(request):
+    if request.method == 'GET':
+        return JsonResponse({'status': 'ok', 'message': 'Chat human handover endpoint'})
     try:
         payload = json.loads(request.body.decode("utf-8"))
     except json.JSONDecodeError:
