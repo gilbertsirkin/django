@@ -1,25 +1,31 @@
-Which staking plan is right for you, {{ first_name }}?
+Subject: Stake once. Earn WOLV automatically.
 
-We offer four tiers to match your strategy and capital size. All plans stake BNB or BUSD and pay rewards in WOLV tokens at $1 each.
+Hey there,
 
-⬡ PIONEER — Conservative
-$100 Minimum · 8% APY · 90-Day Lock · 2.0% Early Exit Fee
-Best for: First-time stakers getting started with crypto yield.
+Let's look at the structure of our core fixed-yield accounts. We designed these tiers to serve different levels of commitment, ensuring that whether you're starting small or allocating significant capital, the rules remain entirely predictable.
 
-⬡ VANGUARD — Balanced (Most Popular)
-$1,000 Minimum · 12% APY · 150-Day Lock · 2.5% Early Exit Fee
-Best for: Investors who want steady growth with moderate commitment.
+Here is how our active investment plans break down:
 
-⬡ HORIZON — Active
-$5,000 Minimum · 18% APY · 180-Day Lock · 3.0% Early Exit Fee
-Best for: Experienced investors seeking premium on-chain yields.
+- Pioneer Plan: 8% APY | 90-day lock | $100 Min
+  $100 invested → ~$102 at maturity + WOLV rewards
 
-⬡ SUMMIT VIP — Elite
-$15,000 Minimum · 25% APY · 365-Day Lock · 3.5% Early Exit Fee
-Best for: High-conviction investors maximising long-term WOLV accumulation.
+- Vanguard Plan: 10% APY | 180-day lock | $500 Min
+  $500 invested → ~$525 at maturity + WOLV rewards
 
-All contracts are publicly verified on BSCScan. Source code is readable by anyone.
+- Horizon Plan: 12% APY | 270-day lock | $1,000 Min
+  $1,000 invested → ~$1,090 at maturity + WOLV rewards
 
-START STAKING: https://wolvcapital.com/dashboard/stake
+- Summit VIP: 14% APY | 365-day lock | $5,000 Min
+  $5,000 invested → ~$6,250 after 365 days + WOLV rewards
 
-Note: Early exit incurs a fee on principal. Only stake capital you can afford to lose for the full lock period.
+All returns are projections based on stated APY. WOLV tokens are paid on top of your principal return — they're separate from the fiat-denominated gain shown above. Tomorrow I'll show you the real numbers on what that WOLV payout looks like.
+
+Open My Account and Choose a Plan: {{ plans_url }}
+
+KYC takes under 5 minutes. Pioneer starts at $100.
+
+---
+Risk disclosure: Returns shown are projections based on stated APY, not guaranteed. Staking involves risk of principal loss. Digital assets are volatile. Full disclosure: https://wolvcapital.com/risk-disclosure
+
+Plans | WOLV Token | FAQ | Contact
+© 2026 WolvCapital, Inc.

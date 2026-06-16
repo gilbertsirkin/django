@@ -1,17 +1,28 @@
-Welcome to WolvCapital, {{ first_name }}.
+Subject: Your money should work harder than you do
 
-You've just joined a platform built on one principle: your returns should be verifiable — not just promised.
+Hey there,
 
-WHAT MAKES WOLVCAPITAL DIFFERENT?
-We combine KYC-verified onboarding, institutional-grade custody, and audited smart contracts on BNB Chain. Every reward we distribute is recorded permanently on the blockchain — independently verifiable by anyone, anytime.
+Most investment advice tells you to wait. Wait 30 years, compound a few percent, and eventually, you'll be able to enjoy what you built.
 
-- KYC-Verified: Full identity verification before any staking position opens.
-- Real-Time Dashboard: Track your staking rewards 24/7.
-- On-Chain Proof: Every WOLV token you earn is a permanent blockchain record.
-- Institutional Custody: Your principal held with licensed custodians.
+We look at things differently. 
 
-EXPLORE YOUR DASHBOARD: https://wolvcapital.com/dashboard
+At Wolv Capital, we don't think you should wait decades for your capital to perform. We build automated, fixed-yield investment protocols that work around the clock, providing upfront clarity on exactly what your money is earning.
 
-Important: All staking positions carry risk, including potential loss of principal. Only stake capital you can afford to lose. Review our Risk Disclosure before staking.
+Our model is straightforward: you stake your assets into structured plans, and the platform handles the underlying deployment. 
 
-P.S. Tomorrow we walk you through exactly how our staking plans work — and which one fits your goals.
+- Fixed APY: Up to 14% depending on your chosen timeframe.
+- Complete Clarity: Your yield is locked into the position from day one.
+- On-Chain Verification: Every reward payout is settled directly via smart contracts on a wallet you own.
+
+Over the next 9 days, I'll show you exactly how this works — the math, the contracts, the security setup. But first, take 2 minutes to see which plan fits your situation.
+
+See All Investment Plans: {{ plans_url }}
+
+No commitment. Starts at $100. KYC takes under 5 minutes.
+
+---
+Risk disclosure: Staking positions carry risk including potential loss of principal. Digital assets are volatile. Past performance does not guarantee future rewards. Only invest capital you can afford to lose. Full disclosure: https://wolvcapital.com/risk-disclosure
+
+Plans | WOLV Token | FAQ | Contact
+🔒 FinCEN MSB Registered · ✓ Audited Smart Contracts · 🔐 256-bit SSL
+© 2026 WolvCapital, Inc.

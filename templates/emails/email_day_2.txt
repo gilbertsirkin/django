@@ -1,25 +1,23 @@
-Hi {{ first_name }}, here's exactly how staking works at WolvCapital.
+Subject: We put your profits on the blockchain
 
-If you can't explain how your money grows, you shouldn't stake it. Here is the WolvCapital process:
+Hey there,
 
-1. Complete KYC verification.
-2. Choose a staking plan (Pioneer, Vanguard, Horizon, or Summit VIP).
-3. Stake BNB or BUSD — held in audited smart contracts, not with us.
-4. Track your WOLV reward accumulation in real time.
-5. Claim your WOLV rewards after your lock period ends.
+"Trust us" is a terrible strategy in finance. That's why we don't ask you to trust our word. We ask you to audit our ledger.
 
-HOW REWARDS WORK:
-- Every reward is paid in WOLV tokens at $1 per WOLV.
-- WOLV is a BEP-20 token on BNB Smart Chain — fixed supply of 1 billion.
-- Rewards accumulate automatically in your on-chain reward pool.
-- Smart contracts are publicly verified on BSCScan — read the code yourself.
+Wolv Capital uses a decentralized settlement engine to manage yields. When you choose an investment plan, the parameters aren't just logged in a private server database — they are anchored where you can see them.
 
-CURRENT STAKING RATES:
-- Pioneer: 8% APY · 90 days · Min $100
-- Vanguard: 12% APY · 150 days · Min $1,000
-- Horizon: 18% APY · 180 days · Min $5,000
-- Summit VIP: 25% APY · 365 days · Min $15,000
+Here is the proof before you invest:
 
-VIEW STAKING PLANS: https://wolvcapital.com/plans
+1. Staked assets are routed to programmatic pools.
+2. Yield calculation is mathematical, not discretionary.
+3. Claim to your wallet anytime: Connect MetaMask or Trust Wallet to transfer your WOLV to your own address. You own it outright.
 
-Past performance does not guarantee future staking rewards. Principal at risk.
+Verify the WOLV Contract on BSCScan: {{ bscscan_url }}
+
+No account needed. Takes 30 seconds. See the proof before you invest.
+
+---
+Risk disclosure: Staking positions carry risk including potential loss of principal. Digital assets are volatile. Past performance does not guarantee future rewards. Full disclosure: https://wolvcapital.com/risk-disclosure
+
+Plans | WOLV Token | FAQ | Contact
+© 2026 WolvCapital, Inc.

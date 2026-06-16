@@ -1,27 +1,22 @@
-Hi {{ first_name }}, your security is our foundation — not an afterthought.
+Subject: Here's everything we can't hide (and why that's good)
 
-We answer the "Is my money safe?" question with verifiable facts, not promises.
+Hey there,
 
-PLATFORM SECURITY:
-- FinCEN MSB Registered — U.S. regulatory compliance.
-- 256-Bit SSL Encryption — bank-grade connection security.
-- Mandatory 2FA — only you can access your account.
-- KYC on every account — no anonymous positions.
-- AML screening on every transaction in real time.
+In decentralized finance, security isn't about branding; it's about architecture. When we launched our updated smart contracts, we built them to ensure that no single person — not even our development team — can alter the core payout mechanics once your position is active.
 
-ON-CHAIN TRANSPARENCY:
-- Every reward distributed is permanently recorded on BNB Chain.
-- Staking, Reward Pool, and WOLV Token contracts are all publicly verified on BSCScan.
-- Chainlink oracles provide tamper-proof price feeds — no manipulation possible.
-- 24/7 automated monitoring for unusual platform activity.
+Here is exactly what is hardcoded into our system:
 
-Don't take our word for it. Here's what verified investors say:
+- Immutable Lock Periods: Once your plan is active, the timelines are fixed. No early clawbacks, no unexpected fee alterations.
+- Audited Codebases: Our smart contracts have undergone extensive code reviews to minimize structural vulnerabilities.
+- Non-custodial WOLV rewards: WOLV tokens are paid directly to your connected wallet address. The contract handles distributions programmatically; we don't hold your reward tokens on your behalf.
 
-★★★★☆ "WolvCapital's support team genuinely deserves a review. Every time I reached out, I got a fast and clear response." — LucasSG, Verified Investor
+None of this removes market risk — crypto is volatile and staking carries principal risk. But it does mean the platform itself is structured to be transparent, not just trustworthy-sounding.
 
-★★★★☆ "I've been using WolvCapital for a while now, specifically their Pioneer Plan, and my experience has been genuinely positive." — CunninghamNL, Verified Investor
+Read Our Smart Contract Documentation: {{ smart_contracts_url }}
+Verify the contract on BSCScan yourself: {{ bscscan_url }}
 
-Rated 4.3 on Trustpilot · 10 verified reviews
-SEE ALL REVIEWS: https://www.trustpilot.com/review/wolvcapital.com
+---
+Risk disclosure: Security audits reduce but do not eliminate smart contract risk. Staking involves risk of principal loss. Digital assets are volatile. Full disclosure: https://wolvcapital.com/risk-disclosure
 
-VIEW FULL SECURITY DETAILS: https://wolvcapital.com/security
+Plans | WOLV Token | Security | Contact
+© 2026 WolvCapital, Inc.

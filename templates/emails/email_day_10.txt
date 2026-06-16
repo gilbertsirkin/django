@@ -1,26 +1,24 @@
-This is your final step, {{ first_name }}.
+Subject: Last email. One question.
 
-Over the past 10 days you've seen exactly what WolvCapital is built on:
+Hey Radical,
 
-✓ Audited smart contracts on BNB Chain — verified by anyone on BSCScan.
-✓ WOLV Token — on-chain proof of every reward distributed.
-✓ FinCEN MSB Registered — U.S. regulatory compliance.
-✓ Chainlink price oracles — tamper-proof, decentralised pricing.
-✓ Institutional custody — your principal in licensed hands.
-✓ Rated 4.3 on Trustpilot by verified investors.
+This is the final email in our onboarding series. Over the last 10 days, we've walked you through our architecture, broken down our fixed APY tiers, mapped out our dual-reward mechanics, and provided you with our live smart contract details.
 
-The best time to start was yesterday. The second best time is now.
+At this point, you have all the information necessary to make an independent decision. 
 
-Whether you begin with the $100 Pioneer plan or go straight to the $15,000 Summit VIP, your staking position is waiting — and every day you wait is a day of WOLV rewards you're not earning.
+The question left is simple: Is your capital working as hard as it could be?
 
-STAKING PLANS:
-- Pioneer: 8% APY · 90 days · Min $100
-- Vanguard: 12% APY · 150 days · Min $1,000
-- Horizon: 18% APY · 180 days · Min $5,000
-- Summit VIP: 25% APY · 365 days · Min $15,000
+If you prefer to review the data one more time, our full documentation and contract configurations remain accessible on our main portal. And if you're ready, Pioneer starts at $100 and takes 5 minutes to open.
 
-START STAKING NOW: https://wolvcapital.com/dashboard/stake
-READ OUR WHITEPAPER: https://wolvcapital.com/whitepaper
-SEE TRUSTPILOT REVIEWS: https://www.trustpilot.com/review/wolvcapital.com
+I'm Ready — Open My Account: {{ signup_url }}
 
-Important: All staking positions carry risk, including potential loss of principal. Digital assets are highly volatile. WolvCapital is not a bank and does not offer FDIC or SIPC insurance. Only stake capital you can afford to lose entirely.
+Pioneer · $100 minimum · 8% APY · 90 day lock. KYC under 5 minutes.
+
+— The WolvCapital Team
+https://wolvcapital.com/contact
+
+---
+Risk disclosure: All investment plans and staking carry risk including potential loss of principal. Digital assets are volatile. Returns are projections, not guarantees. Past performance does not guarantee future results. Only invest capital you can afford to lose. Full disclosure: https://wolvcapital.com/risk-disclosure
+
+Plans | WOLV Token | FAQ | Contact
+© 2026 WolvCapital, Inc.

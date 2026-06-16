@@ -1,20 +1,23 @@
-Real investors. Real on-chain returns, {{ first_name }}.
+Subject: You're earning — here's how to earn more
 
-Here is what our verified community says about staking with WolvCapital:
+Hey there,
 
-★★★★☆ "WolvCapital's support team genuinely deserves a review. Every time I reached out, I got a fast and clear response without the usual back-and-forth or generic replies." — LucasSG, Verified Investor
+Once you have a fixed-yield plan running, you'll start accumulating regular WOLV tokens on your user dashboard. But what do you do with those tokens? 
 
-★★★★☆ "I've been using WolvCapital for a while now, specifically their Pioneer Investment Plan, and my experience has been genuinely positive so far." — CunninghamNL, Verified Investor
+You can let them sit, you can move them to an external wallet, or you can utilize our Direct Staking Dashboard to double-dip on your allocations.
 
-Rated 4.3/5 on Trustpilot · 10 verified reviews
-READ ALL REVIEWS: https://www.trustpilot.com/review/wolvcapital.com
+Direct staking allows you to take your accumulated WOLV tokens (or extra BNB) and lock them directly into our dedicated token liquidity contracts. 
 
-PLATFORM STATS:
-- 4 audited staking plans — 8% to 25% APY
-- BNB or BUSD accepted
-- WOLV rewards at $1 per token, paid on-chain
-- Smart contracts verified on BSCScan
+For example: An investor runs a $1,000 Horizon plan, earning steady fixed distributions. They take their daily WOLV payouts and route them immediately into the direct staking protocol. They also stake $200 BNB separately. They receive ~$90 APY gain at maturity plus daily WOLV rewards on the $200 staking position — two separate payouts, from the same account, running in parallel.
 
-JOIN THEM: https://wolvcapital.com/dashboard/stake
+The staking dashboard is live in your account. You don't need to wait for your investment plan to mature to access it.
 
-Past performance does not guarantee future staking rewards. Principal at risk.
+Open the Staking Dashboard: {{ stake_url }}
+
+Starts at $50. WOLV rewards begin accumulating the same day.
+
+---
+Risk disclosure: Both investment plans and direct staking carry risk including potential loss of principal. Returns are not guaranteed. WOLV token values fluctuate with market conditions. Full disclosure: https://wolvcapital.com/risk-disclosure
+
+Plans | WOLV Token | FAQ | Contact
+© 2026 WolvCapital, Inc.
