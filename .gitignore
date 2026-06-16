@@ -63,3 +63,4 @@ lib/
 __pycache__/
 .gitignore
 patch_*.py
+frontend.zip
