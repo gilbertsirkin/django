@@ -9,41 +9,35 @@ declare global {
   }
 }
 
+const OVERRIDE_PROPERTY_ID = '6910c11e3239d4195bd86428'
+const OVERRIDE_WIDGET_ID = '1j9kn4okn'
+
+const ENABLED = typeof process !== 'undefined'
+  ? (((process as any).env?.NEXT_PUBLIC_TAWK_ENABLED ?? 'true') !== 'false')
+  : true
+
 export default function TawkWidget() {
   useEffect(() => {
+    if (!ENABLED) return
+
+    // Prevent double injection
     if (typeof window !== 'undefined' && (window as any).Tawk_API) return
 
     ;(window as any).Tawk_API = (window as any).Tawk_API || {}
     ;(window as any).Tawk_LoadStart = new Date()
 
-    // 🌟 POSITION OVERRIDE: Moves the bubble to the bottom-left corner
-    ;(window as any).Tawk_API.customStyle = {
-      visibility: {
-        desktop: {
-          position: 'bl', // Bottom Left
-          xOffset: '20px',
-          yOffset: '20px'
-        },
-        mobile: {
-          position: 'bl', // Bottom Left
-          xOffset: '15px',
-          yOffset: '15px'
-        }
-      }
-    }
-
     const s = document.createElement('script')
     s.id = 'tawk-override-embed'
     s.async = true
-    s.src = 'https://embed.tawk.to/6a2706aa2d41c91c2b850b27/default'
+    s.src = `https://embed.tawk.to/${OVERRIDE_PROPERTY_ID}/${OVERRIDE_WIDGET_ID}`
     s.charset = 'UTF-8'
     s.setAttribute('crossorigin', '*')
-    
-    const target = document.head || document.getElementsByTagName('script')[0]
-    target?.appendChild(s)
+    const first = document.getElementsByTagName('script')[0]
+    first?.parentNode?.insertBefore(s, first)
 
+    // Small safeguard: when widget tries to open a new window, show widget instead.
     const originalOpen = window.open.bind(window)
-    ;(window as any).open = ((url?: string | URL, targetEnv?: string, features?: string) => {
+    ;(window as any).open = ((url?: string | URL, target?: string, features?: string) => {
       const asString = typeof url === 'string' ? url : (url as URL)?.toString?.() || ''
       if (asString.includes('tawk.to/chat/') && asString.includes('pop=1')) {
         try {
@@ -55,10 +49,12 @@ export default function TawkWidget() {
         }
         return null as any
       }
-      return originalOpen(url as any, targetEnv as any, features as any)
+      return originalOpen(url as any, target as any, features as any)
     }) as any
 
-    return () => {}
+    return () => {
+      // no cleanup for injected script (leave Tawk to manage itself)
+    }
   }, [])
 
   return null

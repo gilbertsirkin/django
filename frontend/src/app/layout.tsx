@@ -9,7 +9,6 @@ import AppChrome from '@/components/AppChrome'
 import GaPageView from '@/components/GaPageView'
 import SegmentProvider from '@/components/SegmentProvider'
 import RemoveSyncBannerClient from '@/components/RemoveSyncBannerClient'
-import TawkWidget from '@/components/TawkWidget'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
@@ -79,11 +78,15 @@ export default async function RootLayout({
 
   const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
   const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID
+  const linkedInPartnerId = process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID
+  const hotjarId = process.env.NEXT_PUBLIC_HOTJAR_ID
+  const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID
 
   return (
     <html lang={locale}>
       <head>
         <meta name="google-site-verification" content="z2bE7_WWwLyDUFbwY9UFtrHVf1xXvFqq_iauSokX5yI" />
+        {/* FAQ structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -112,6 +115,7 @@ export default async function RootLayout({
           }}
         />
 
+        {/* Organization + WebSite + Trustpilot rating structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -241,7 +245,6 @@ export default async function RootLayout({
           )}
 
           <Analytics />
-          <TawkWidget />
         </SegmentProvider>
       </body>
     </html>
