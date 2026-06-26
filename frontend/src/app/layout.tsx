@@ -9,7 +9,6 @@ import AppChrome from '@/components/AppChrome'
 import GaPageView from '@/components/GaPageView'
 import SegmentProvider from '@/components/SegmentProvider'
 import RemoveSyncBannerClient from '@/components/RemoveSyncBannerClient'
-import TawkWidget from '@/components/TawkWidget'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
@@ -241,7 +240,10 @@ export default async function RootLayout({
           )}
 
           <Analytics />
-          <TawkWidget />
+          <Script
+            src="https://id-preview--709a74e6-c0f8-48c6-8734-0dde68a7ad34.lovable.app/widget.js"
+            strategy="afterInteractive"
+          />
         </SegmentProvider>
       </body>
     </html>
