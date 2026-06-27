@@ -258,7 +258,7 @@ export default function WolvTokenPage() {
                       className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-black/20 rounded-lg">
                       <span className="text-white font-medium mb-2 sm:mb-0">{contract.name}</span>
                       <a
-                        href={`https://bscscan.com/address/${contract.address}#code`}
+                        href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${contract.address}`}
                         target="_blank" rel="noopener noreferrer"
                         className="text-teal-400 hover:text-teal-300 font-mono text-sm break-all"
                       >

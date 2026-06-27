@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 };
 
 const CONTRACTS = [
-  { name: "WOLV Token",       address: "0xe0167279aef7bf4ad313d261da82e8366822270c", desc: "Fixed supply · No mint · BEP-20", url: "https://bscscan.com/address/0xe0167279aef7bf4ad313d261da82e8366822270c#code" },
-  { name: "Reward Pool",      address: "0xb233cf74b14abf9d9702d585c540030125599579", desc: "48hr timelock · Treasury funded",  url: "https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=0xb233cf74b14abf9d9702d585c540030125599579#code" },
-  { name: "Staking Contract", address: "0x4b62efee5695ed55cd362a0b818f4c5f9694322b", desc: "Chainlink oracle · Auditable",      url: "https://bscscan.com/address/0x4b62efee5695ed55cd362a0b818f4c5f9694322b#code" },
+  { name: "WOLV Token",       address: "0xe0167279aef7bf4ad313d261da82e8366822270c", desc: "Fixed supply · No mint · BEP-20", url: "https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c" },
+  { name: "Reward Pool",      address: "0xb233cf74b14abf9d9702d585c540030125599579", desc: "48hr timelock · Treasury funded",  url: "https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=0xb233cf74b14abf9d9702d585c540030125599579" },
+  { name: "Staking Contract", address: "0x4b62efee5695ed55cd362a0b818f4c5f9694322b", desc: "Chainlink oracle · Auditable",      url: "https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=0x4b62efee5695ed55cd362a0b818f4c5f9694322b" },
 ];
 
 export default function SecurityPage(): JSX.Element {
@@ -184,7 +184,7 @@ export default function SecurityPage(): JSX.Element {
             <Link href="/contact" className="inline-flex items-center justify-center rounded-[7px] px-6 py-3 text-sm font-bold bg-[#2A52BE] text-white hover:bg-[#244bb0] transition">
               Contact Security Team
             </Link>
-            <a href="https://bscscan.com/address/0xe0167279aef7bf4ad313d261da82e8366822270c#code" target="_blank" rel="noopener noreferrer"
+            <a href="https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-[7px] px-6 py-3 text-sm font-bold border border-[#2A52BE] text-[#2A52BE] hover:bg-[#eff6ff] transition">
               View Contracts on BSCScan ↗
             </a>

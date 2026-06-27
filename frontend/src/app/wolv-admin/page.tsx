@@ -241,7 +241,7 @@ export default function WolvAdminPage() {
             { label: 'Reward Pool', addr: POOL },
             { label: 'Staking', addr: STAKING },
           ].map(c => (
-            <a key={c.addr} href={`https://bscscan.com/address/${c.addr}`} target="_blank" rel="noreferrer"
+            <a key={c.addr} href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${c.addr}`} target="_blank" rel="noreferrer"
               style={{ padding: '6px 14px', borderRadius: '8px', fontSize: '12px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>
               {c.label} ↗
             </a>

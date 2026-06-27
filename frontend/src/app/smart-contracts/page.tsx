@@ -330,7 +330,7 @@ export default function SmartContractsPage() {
                 </div>
                 <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
                   <a
-                    href={`https://bscscan.com/address/${contract.address}#code`}
+                    href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${contract.address}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -347,7 +347,7 @@ export default function SmartContractsPage() {
                     View Code ↗
                   </a>
                   <a
-                    href={`https://bscscan.com/address/${contract.address}#readContract`}
+                    href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${contract.address}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{

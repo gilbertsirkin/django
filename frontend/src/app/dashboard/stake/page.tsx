@@ -526,8 +526,8 @@ export default function StakePage() {
                             Early Exit ({plan.exitFee} fee)
                           </button>
                         )}
-                        <a href={`https://bscscan.com/address/${STAKING_ADDRESS}#readContract`} target="_blank" rel="noreferrer" style={{ ...btnStyle('#2A52BE', true), textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
-                          Verify on BSCScan ↗
+                        <a href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${STAKING_ADDRESS}`} target="_blank" rel="noreferrer" style={{ ...btnStyle('#2A52BE', true), textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                          Verify WOLV Balance on BSCScan ↗
                         </a>
                       </div>
                     </div>
