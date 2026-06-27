@@ -241,7 +241,8 @@ export default async function RootLayout({
 
           <Analytics />
           <Script
-            src="https://id-preview--709a74e6-c0f8-48c6-8734-0dde68a7ad34.lovable.app/widget.js"
+            src="https://investor-chat.lovable.app/widget.js"
+            data-site="wolvcapital"
             strategy="afterInteractive"
           />
         </SegmentProvider>
