@@ -128,7 +128,7 @@ export default function SecuritySection() {
                   <div className="text-[#64748B] text-xs">{c.label}</div>
                 </div>
                 <a
-                  href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${c.address}`}
+                  href={`https://bscscan.com/address/${c.address}#code`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[11px] font-mono text-[#00a896] hover:underline break-all"

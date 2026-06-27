@@ -77,7 +77,7 @@ function Metrics() {
             { name: 'Reward Pool',      addr: POOL_ADDRESS    },
             { name: 'Staking Contract', addr: STAKING_ADDRESS },
           ].map(c => (
-            <a key={c.name} href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${c.addr}`} target="_blank" rel="noopener noreferrer"
+            <a key={c.name} href={`https://bscscan.com/address/${c.addr}#code`} target="_blank" rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 16px', borderRadius: '8px', background: 'rgba(42,82,190,0.1)', border: '1px solid rgba(42,82,190,0.25)', color: '#fff', fontSize: '12px', fontWeight: 600, textDecoration: 'none' }}>
               <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00a896', display: 'inline-block' }} />
               {c.name} ↗

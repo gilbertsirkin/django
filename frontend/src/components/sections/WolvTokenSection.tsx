@@ -77,7 +77,7 @@ export default function WolvTokenSection() {
           ].map(c => (
             <div key={c.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.06)', flexWrap: 'wrap', gap: '8px' }}>
               <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '13px', fontWeight: 500 }}>{c.name}</span>
-              <a href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${c.address}`} target="_blank" rel="noopener noreferrer" style={{ color: '#00a896', fontSize: '12px', fontFamily: 'monospace' }}>
+              <a href={`https://bscscan.com/address/${c.address}#code`} target="_blank" rel="noopener noreferrer" style={{ color: '#00a896', fontSize: '12px', fontFamily: 'monospace' }}>
                 {c.address.slice(0, 10)}...{c.address.slice(-8)} ↗
               </a>
             </div>

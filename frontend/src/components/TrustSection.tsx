@@ -87,7 +87,7 @@ export default function TrustSection() {
             ].map(c => (
               <div key={c.name} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-gray-50 rounded-xl border border-gray-200">
                 <span className="font-semibold text-gray-800 mb-1 sm:mb-0">{c.name}</span>
-                <a href={`https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${c.addr}`} target="_blank" rel="noopener noreferrer"
+                <a href={`https://bscscan.com/address/${c.addr}#code`} target="_blank" rel="noopener noreferrer"
                   className="font-mono text-xs text-blue-600 hover:text-blue-800 break-all">
                   {c.addr.slice(0, 10)}...{c.addr.slice(-8)} ↗
                 </a>

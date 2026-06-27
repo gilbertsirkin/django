@@ -197,9 +197,9 @@ export default function TokenomicsPage() {
 
           <div className="flex flex-col gap-4 mb-10">
             {[
-              { name: "WOLV Token",       address: CONTRACTS.token,   desc: "Fixed supply · No mint · BEP-20",     url: `https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${CONTRACTS.token}` },
-              { name: "Reward Pool",      address: CONTRACTS.pool,    desc: "48hr timelock · Treasury funded",      url: `https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${CONTRACTS.pool}` },
-              { name: "Staking Contract", address: CONTRACTS.staking, desc: "Chainlink oracle · 4 staking plans",  url: `https://bscscan.com/token/0xe0167279aef7bf4ad313d261da82e8366822270c?a=${CONTRACTS.staking}` },
+              { name: "WOLV Token",       address: CONTRACTS.token,   desc: "Fixed supply · No mint · BEP-20",     url: `https://bscscan.com/address/${CONTRACTS.token}#code` },
+              { name: "Reward Pool",      address: CONTRACTS.pool,    desc: "48hr timelock · Treasury funded",      url: `https://bscscan.com/address/${CONTRACTS.pool}#code` },
+              { name: "Staking Contract", address: CONTRACTS.staking, desc: "Chainlink oracle · 4 staking plans",  url: `https://bscscan.com/address/${CONTRACTS.staking}#code` },
             ].map(c => (
               <div key={c.name} className="bg-white border border-[#bfdbfe] rounded-xl px-6 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
