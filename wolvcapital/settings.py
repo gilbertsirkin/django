@@ -210,8 +210,8 @@ INSTALLED_APPS = [
     "referrals",
     "cards",
     "chat",
+    "telegrambot",
 ]
-
 # Alert thresholds for high-priority admin email notifications
 # Environment variable overrides allow runtime tuning without code changes.
 

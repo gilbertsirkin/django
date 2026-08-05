@@ -43,4 +43,5 @@ urlpatterns += [
         "path": "index.html",
         "document_root": os.path.join(settings.BASE_DIR, "agent-ui")
     }),
+    path("bot/", include("telegrambot.urls")),
 ]

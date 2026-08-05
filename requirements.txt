@@ -53,3 +53,4 @@ wrapt==2.1.2
 groq==1.1.2
 django-storages==1.14.6
 boto3==1.43.14
+python-telegram-bot==22.8
