@@ -430,23 +430,24 @@ def generate_telegram_link_token(user) -> str:
     """
     from .models import Profile
 
-profile, _ = Profile.objects.select_for_update().get_or_create(user=user)
+    with transaction.atomic():
+        profile, _ = Profile.objects.select_for_update().get_or_create(user=user)
 
-    now = timezone.now()
-    token_is_fresh = (
-        profile.telegram_link_token
-        and profile.telegram_link_token_created_at
-        and (now - profile.telegram_link_token_created_at).total_seconds()
-        < TELEGRAM_LINK_TOKEN_TTL_MINUTES * 60
-    )
-    if token_is_fresh:
-        return profile.telegram_link_token
+        now = timezone.now()
+        token_is_fresh = (
+            profile.telegram_link_token
+            and profile.telegram_link_token_created_at
+            and (now - profile.telegram_link_token_created_at).total_seconds()
+            < TELEGRAM_LINK_TOKEN_TTL_MINUTES * 60
+        )
+        if token_is_fresh:
+            return profile.telegram_link_token
 
-    token = secrets.token_urlsafe(24)
-    profile.telegram_link_token = token
-    profile.telegram_link_token_created_at = now
-    profile.save(update_fields=["telegram_link_token", "telegram_link_token_created_at"])
-    return token
+        token = secrets.token_urlsafe(24)
+        profile.telegram_link_token = token
+        profile.telegram_link_token_created_at = now
+        profile.save(update_fields=["telegram_link_token", "telegram_link_token_created_at"])
+        return token
 
 
 def consume_telegram_link_token(token: str, chat_id: int, telegram_username: str | None = None):
