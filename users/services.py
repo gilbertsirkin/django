@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import secrets
+from datetime import date, datetime
 from datetime import date, datetime
 from typing import Any
 
@@ -411,3 +413,95 @@ def reject_kyc_document(document: KycDocument, admin_user, reason: str) -> KycDo
         pass
 
     return document
+
+
+# ---------------------------------------------------------------------------
+# Telegram account linking
+# ---------------------------------------------------------------------------
+
+TELEGRAM_LINK_TOKEN_TTL_MINUTES = 15
+
+
+def generate_telegram_link_token(user) -> str:
+    """
+    Issue (or reuse) a one-time token for the dashboard's "Connect Telegram"
+    button. The user is sent to t.me/<bot>?start=<token>; the bot's /start
+    handler calls consume_telegram_link_token() to complete the link.
+    """
+    from .models import Profile
+
+    profile = Profile.objects.select_for_update().get(user=user)
+
+    now = timezone.now()
+    token_is_fresh = (
+        profile.telegram_link_token
+        and profile.telegram_link_token_created_at
+        and (now - profile.telegram_link_token_created_at).total_seconds()
+        < TELEGRAM_LINK_TOKEN_TTL_MINUTES * 60
+    )
+    if token_is_fresh:
+        return profile.telegram_link_token
+
+    token = secrets.token_urlsafe(24)
+    profile.telegram_link_token = token
+    profile.telegram_link_token_created_at = now
+    profile.save(update_fields=["telegram_link_token", "telegram_link_token_created_at"])
+    return token
+
+
+def consume_telegram_link_token(token: str, chat_id: int, telegram_username: str | None = None):
+    """
+    Called from the bot's /start handler when a deep-link token is present.
+    Returns the linked Profile, or None if the token is invalid/expired/used.
+    """
+    from .models import Profile
+
+    if not token:
+        return None
+
+    try:
+        with transaction.atomic():
+            profile = Profile.objects.select_for_update().get(telegram_link_token=token)
+
+            if profile.telegram_link_token_created_at:
+                age_seconds = (
+                    timezone.now() - profile.telegram_link_token_created_at
+                ).total_seconds()
+                if age_seconds > TELEGRAM_LINK_TOKEN_TTL_MINUTES * 60:
+                    return None  # expired
+
+            profile.telegram_chat_id = chat_id
+            profile.telegram_username = telegram_username or ""
+            profile.telegram_linked_at = timezone.now()
+            profile.telegram_link_token = None
+            profile.telegram_link_token_created_at = None
+            profile.save(
+                update_fields=[
+                    "telegram_chat_id",
+                    "telegram_username",
+                    "telegram_linked_at",
+                    "telegram_link_token",
+                    "telegram_link_token_created_at",
+                ]
+            )
+            return profile
+    except Profile.DoesNotExist:
+        return None
+
+
+def get_profile_by_telegram_chat_id(chat_id: int):
+    from .models import Profile
+
+    return Profile.objects.filter(telegram_chat_id=chat_id).select_related("user").first()
+
+
+def unlink_telegram(chat_id: int) -> bool:
+    """Used by an in-bot /unlink command. Returns True if a profile was unlinked."""
+    from .models import Profile
+
+    updated = Profile.objects.filter(telegram_chat_id=chat_id).update(
+        telegram_chat_id=None,
+        telegram_username=None,
+        telegram_linked_at=None,
+    )
+    return updated > 0

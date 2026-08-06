@@ -6,23 +6,13 @@ from django.core.management.base import BaseCommand
 from django.db import connection, transaction
 from django.utils import timezone
 
-from core.email_service import EmailService
-from investments.models import DailyRoiPayout, UserInvestment
-from investments.services import credit_roi_payout
-from wolvcapital.rls import rls_admin_context
 
-try:
-    from telegrambot.bot import TELEGRAM_MINIAPP_URL
-    from telegrambot.notify import notify_profile, roi_payout_keyboard
-    from users.models import Profile
-
-    _TELEGRAM_AVAILABLE = True
-except Exception:  # pragma: no cover — telegrambot app may not be installed everywhere
-    _TELEGRAM_AVAILABLE = False
 logger = logging.getLogger(__name__)
+	
 
 
-class Command(BaseCommand):
+
+	class Command(BaseCommand):
     help = (
         "Stub: Process daily ROI payouts for approved & active investments "
         "(idempotent per day)."
@@ -201,36 +191,6 @@ class Command(BaseCommand):
                                                     payout,
                                                     inv,
                                                     day,
-                                                )
-                                            if _TELEGRAM_AVAILABLE:
-                                            try:
-                                                profile = Profile.objects.filter(
-                                                    user=inv.user
-                                                ).first()
-                                                if profile and profile.telegram_chat_id:
-                                                    plan_name = (
-                                                        inv.plan.name if inv.plan else "your investment"
-                                                    )
-                                                    notify_profile(
-                                                        profile,
-                                                        (
-                                                            f"💸 <b>ROI Payout Received</b>\n\n"
-                                                            f"${payout:,.2f} credited for {plan_name} "
-                                                            f"on {day}."
-                                                        ),
-                                                        reply_markup=roi_payout_keyboard(
-                                                            TELEGRAM_MINIAPP_URL
-                                                        ),
-                                                    )
-                                            except Exception as exc:  # pragma: no cover
-                                                logger.warning(
-                                                    (
-                                                        "ROI payout Telegram notification failed "
-                                                        "for user %s investment %s: %s"
-                                                    ),
-                                                    getattr(inv.user, "email", inv.user_id),
-                                                    inv.id,
-                                                    exc,
                                                 )
                                             except Exception as exc:  # pragma: no cover
                                                 logger.warning(

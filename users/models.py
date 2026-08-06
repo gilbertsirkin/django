@@ -53,7 +53,29 @@ class Profile(models.Model):
     email_marketing: models.BooleanField = models.BooleanField(default=False, help_text="Marketing and promotional emails")
     email_verified: models.BooleanField = models.BooleanField(default=False, help_text="Email address verified via code")
 
-    # Stripe Virtual Card fields
+  # Telegram bot linking
+    telegram_chat_id: models.BigIntegerField = models.BigIntegerField(
+        null=True, blank=True, unique=True, db_index=True,
+        help_text="Telegram chat_id once the user has linked their account via the bot"
+    )
+    telegram_username: models.CharField = models.CharField(
+        max_length=64, blank=True, null=True, help_text="Telegram @username at time of linking"
+    )
+    telegram_linked_at: models.DateTimeField = models.DateTimeField(
+        null=True, blank=True, help_text="When the Telegram account was linked"
+    )
+    telegram_link_token: models.CharField = models.CharField(
+        max_length=64, blank=True, null=True, unique=True, db_index=True,
+        help_text="One-time token issued to the dashboard 'Connect Telegram' button; consumed on /start"
+    )
+    telegram_link_token_created_at: models.DateTimeField = models.DateTimeField(
+        null=True, blank=True, help_text="Used to expire stale unclaimed tokens"
+    )
+    telegram_notifications_enabled: models.BooleanField = models.BooleanField(
+        default=True, help_text="Master toggle for Telegram push notifications (payouts, KYC, etc.)"
+    )
+  
+  # Stripe Virtual Card fields
     stripe_cardholder_id: models.CharField = models.CharField(max_length=100, blank=True, null=True, help_text="Stripe Cardholder ID")
     stripe_card_id: models.CharField = models.CharField(max_length=100, blank=True, null=True, help_text="Stripe Virtual Card ID")
     card_last4: models.CharField = models.CharField(max_length=4, blank=True, null=True, help_text="Last 4 digits of card")

@@ -1,5 +1,6 @@
 from rest_framework.permissions import IsAuthenticated
 import hashlib
+import os
 
 from django.apps import apps
 from django.conf import settings
@@ -605,6 +606,22 @@ class WalletView(APIView):
         serializer = UserWalletSerializer(wallet)
         return Response(serializer.data)
 
+class TelegramLinkTokenView(APIView):
+    """
+    Issues a one-time deep-link token for the dashboard's "Connect Telegram"
+    button. Frontend should open t.me/<bot_username>?start=<token> with the
+    returned token.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        from users.services import generate_telegram_link_token
+
+        token = generate_telegram_link_token(request.user)
+        bot_username = os.environ.get("TELEGRAM_BOT_USERNAME", "")
+        deep_link = f"https://t.me/{bot_username}?start={token}" if bot_username else None
+        return Response({"token": token, "deep_link": deep_link})
 
 class AdminTransactionViewSet(viewsets.ModelViewSet):
     """Admin transactions management endpoint"""

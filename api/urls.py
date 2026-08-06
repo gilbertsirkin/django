@@ -78,6 +78,7 @@ urlpatterns = [
         views.UserDashboardAnalyticsView.as_view(),
         name="api-analytics-overview",
     ),
+    path("telegram/link-token/", views.TelegramLinkTokenView.as_view(), name="api-telegram-link-token"),
     path("cron/roi/", views.RoiCronView.as_view(), name="api-cron-roi"),
     path("cron/drip/", views.DripCronView.as_view(), name="api-cron-drip"),
     path("support/", views.SupportRequestView.as_view(), name="api-support"),
