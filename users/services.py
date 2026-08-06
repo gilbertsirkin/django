@@ -430,7 +430,7 @@ def generate_telegram_link_token(user) -> str:
     """
     from .models import Profile
 
-    profile = Profile.objects.select_for_update().get(user=user)
+profile, _ = Profile.objects.select_for_update().get_or_create(user=user)
 
     now = timezone.now()
     token_is_fresh = (
