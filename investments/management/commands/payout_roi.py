@@ -146,19 +146,9 @@ class Command(BaseCommand):
                         if payout <= 0:
                             continue
 
+                        from django.db import IntegrityError
+
                         for day in self._iter_dates(effective_start, effective_end):
-                            # Check if payout already exists for this date (prevent duplicates)
-                            existing_payout = DailyRoiPayout.objects.filter(
-                                investment=inv,
-                                payout_date=day,
-                            ).first()
-
-                            if existing_payout:
-                                # Payout record exists - skip to avoid duplicates
-                                synced += 1
-                                total_amount += existing_payout.amount
-                                continue
-
                             if dry:
                                 self.stdout.write(
                                     f"[DRY] Would pay {payout} to user {inv.user_id} "
@@ -168,82 +158,73 @@ class Command(BaseCommand):
                                 total_amount += payout
                                 continue
 
-                            # Wrap each payout in a DB transaction for atomicity
-                            from django.db import IntegrityError
-                            for day in self._iter_dates(effective_start, effective_end):
-                                if dry:
-                                    self.stdout.write(
-                                        f"[DRY] Would pay {payout} to user {inv.user_id} "
-                                        f"for investment {inv.id} on {day}"
+                            # Wrap each payout in a DB transaction for atomicity.
+                            try:
+                                with transaction.atomic():
+                                    payout_obj, created = DailyRoiPayout.objects.get_or_create(
+                                        investment=inv,
+                                        payout_date=day,
+                                        defaults={"amount": payout},
                                     )
-                                    continue
 
-                                try:
-                                    with transaction.atomic():
-                                        payout_obj, created = DailyRoiPayout.objects.get_or_create(
-                                            investment=inv,
-                                            payout_date=day,
-                                            defaults={"amount": payout},
-                                        )
+                                    if not created:
+                                        # Already paid (or already recorded)
+                                        synced += 1
+                                        total_amount += payout_obj.amount
+                                        continue
 
-                                        if not created:
-                                            # Already paid (or already recorded)
-                                            synced += 1
-                                            total_amount += payout_obj.amount
-                                            continue
+                                    credit_roi_payout(payout_obj)
 
-                                        credit_roi_payout(payout_obj)
+                                    if not no_emails:
+                                        try:
+                                            EmailService.send_roi_payout_notification(
+                                                inv.user,
+                                                payout,
+                                                inv,
+                                                day,
+                                            )
+                                        except Exception as exc:  # pragma: no cover
+                                            logger.warning(
+                                                "ROI payout email failed for user %s investment %s: %s",
+                                                getattr(inv.user, "email", inv.user_id),
+                                                inv.id,
+                                                exc,
+                                            )
 
-                                        if not no_emails:
+                                        if _TELEGRAM_AVAILABLE:
                                             try:
-                                                EmailService.send_roi_payout_notification(
-                                                    inv.user,
-                                                    payout,
-                                                    inv,
-                                                    day,
-                                                )
+                                                profile = Profile.objects.filter(
+                                                    user=inv.user
+                                                ).first()
+                                                if profile and profile.telegram_chat_id:
+                                                    plan_name = (
+                                                        inv.plan.name if inv.plan else "your investment"
+                                                    )
+                                                    notify_profile(
+                                                        profile,
+                                                        (
+                                                            f"💸 <b>ROI Payout Received</b>\n\n"
+                                                            f"${payout:,.2f} credited for {plan_name} "
+                                                            f"on {day}."
+                                                        ),
+                                                        reply_markup=roi_payout_keyboard(
+                                                            TELEGRAM_MINIAPP_URL
+                                                        ),
+                                                    )
                                             except Exception as exc:  # pragma: no cover
                                                 logger.warning(
-                                                    "ROI payout email failed for user %s investment %s: %s",
+                                                    "ROI payout Telegram notification failed "
+                                                    "for user %s investment %s: %s",
                                                     getattr(inv.user, "email", inv.user_id),
                                                     inv.id,
                                                     exc,
                                                 )
 
-                                            if _TELEGRAM_AVAILABLE:
-                                                try:
-                                                    profile = Profile.objects.filter(
-                                                        user=inv.user
-                                                    ).first()
-                                                    if profile and profile.telegram_chat_id:
-                                                        plan_name = (
-                                                            inv.plan.name if inv.plan else "your investment"
-                                                        )
-                                                        notify_profile(
-                                                            profile,
-                                                            (
-                                                                f"💸 <b>ROI Payout Received</b>\n\n"
-                                                                f"${payout:,.2f} credited for {plan_name} "
-                                                                f"on {day}."
-                                                            ),
-                                                            reply_markup=roi_payout_keyboard(
-                                                                TELEGRAM_MINIAPP_URL
-                                                            ),
-                                                        )
-                                                except Exception as exc:  # pragma: no cover
-                                                    logger.warning(
-                                                        "ROI payout Telegram notification failed "
-                                                        "for user %s investment %s: %s",
-                                                        getattr(inv.user, "email", inv.user_id),
-                                                        inv.id,
-                                                        exc,
-                                                    )
-
-                                        paid += 1
-                                        total_amount += payout
-                                except IntegrityError:
-                                    # In case of rare race conditions, treat as already paid
-                                    continue
+                                    paid += 1
+                                    total_amount += payout
+                            except IntegrityError:
+                                # In case of rare race conditions, treat as already paid
+                                continue
 
                         if date_mode == "single" and not dry and paid:
                             self.stdout.write(
