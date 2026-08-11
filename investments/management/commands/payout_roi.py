@@ -202,46 +202,42 @@ class Command(BaseCommand):
                                                     inv,
                                                     day,
                                                 )
+                                            except Exception as exc:  # pragma: no cover
+                                                logger.warning(
+                                                    "ROI payout email failed for user %s investment %s: %s",
+                                                    getattr(inv.user, "email", inv.user_id),
+                                                    inv.id,
+                                                    exc,
+                                                )
+
                                             if _TELEGRAM_AVAILABLE:
-                                            try:
-                                                profile = Profile.objects.filter(
-                                                    user=inv.user
-                                                ).first()
-                                                if profile and profile.telegram_chat_id:
-                                                    plan_name = (
-                                                        inv.plan.name if inv.plan else "your investment"
-                                                    )
-                                                    notify_profile(
-                                                        profile,
-                                                        (
-                                                            f"💸 <b>ROI Payout Received</b>\n\n"
-                                                            f"${payout:,.2f} credited for {plan_name} "
-                                                            f"on {day}."
-                                                        ),
-                                                        reply_markup=roi_payout_keyboard(
-                                                            TELEGRAM_MINIAPP_URL
-                                                        ),
-                                                    )
-                                            except Exception as exc:  # pragma: no cover
-                                                logger.warning(
-                                                    (
+                                                try:
+                                                    profile = Profile.objects.filter(
+                                                        user=inv.user
+                                                    ).first()
+                                                    if profile and profile.telegram_chat_id:
+                                                        plan_name = (
+                                                            inv.plan.name if inv.plan else "your investment"
+                                                        )
+                                                        notify_profile(
+                                                            profile,
+                                                            (
+                                                                f"💸 <b>ROI Payout Received</b>\n\n"
+                                                                f"${payout:,.2f} credited for {plan_name} "
+                                                                f"on {day}."
+                                                            ),
+                                                            reply_markup=roi_payout_keyboard(
+                                                                TELEGRAM_MINIAPP_URL
+                                                            ),
+                                                        )
+                                                except Exception as exc:  # pragma: no cover
+                                                    logger.warning(
                                                         "ROI payout Telegram notification failed "
-                                                        "for user %s investment %s: %s"
-                                                    ),
-                                                    getattr(inv.user, "email", inv.user_id),
-                                                    inv.id,
-                                                    exc,
-                                                )
-                                            except Exception as exc:  # pragma: no cover
-                                                logger.warning(
-                                                    (
-                                                        "ROI payout email failed for user %s "
-                                                        "investment %s: %s"
-                                                    ),
-                                                    getattr(inv.user, "email", inv.user_id),
-                                                    inv.id,
-                                                    exc,
-                                                )
+                                                        "for user %s investment %s: %s",
+                                                        getattr(inv.user, "email", inv.user_id),
+                                                        inv.id,
+                                                        exc,
+                                                    )
 
                                         paid += 1
                                         total_amount += payout

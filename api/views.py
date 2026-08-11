@@ -1226,6 +1226,8 @@ class AdminKycApplicationViewSet(viewsets.ModelViewSet):
                 if target_status == "approved":
                     approve_kyc_application(instance, request.user, notes)
                 elif target_status == "rejected":
+                    if not reason:
+                        raise ValidationError({"reason": ["Rejection reason is required."]})
                     reject_kyc_application(instance, request.user, reason or notes)
                 else:
                     raise ValidationError("Unsupported status change requested.")
