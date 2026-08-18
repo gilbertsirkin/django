@@ -1,44 +1,31 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
 
-{% block title %}Wallet Debited - {{ brand_name }}{% endblock %}
+{% block title %}Wallet debited — {{ brand_name }}{% endblock %}
+{% block preheader %}Your wallet was debited {{ amount }}.{% endblock %}
 
 {% block content %}
-<h2>💸 Wallet Debited</h2>
+{% include "emails/transactional/_heading.html" with text="Wallet debited" %}
 
-<p>Dear {{ user.first_name|default:user.email }},</p>
+<p style="margin:0 0 16px 0;">Hi {{ user.first_name|default:user.email }},</p>
 
-<p>This is to inform you that an amount has been deducted from your wallet.</p>
-
-<div class="warning-box">
-    <h3>Debit Processed</h3>
-    <p>The amount has been successfully deducted from your wallet balance.</p>
-</div>
-
-<table class="details-table">
-    <tr>
-        <td>Amount Debited:</td>
-        <td><strong style="color: #EF4444; font-size: 18px;">${{ amount }}</strong></td>
-    </tr>
-    {% if reason %}
-    <tr>
-        <td>Reason:</td>
-        <td>{{ reason }}</td>
-    </tr>
-    {% endif %}
-    <tr>
-        <td>Processed:</td>
-        <td>{{ timestamp|date:"F d, Y \a\t g:i A"|default:"Now" }}</td>
-    </tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8FA; border-radius:6px; margin:20px 0;">
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660; width:38%;">Amount</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">-{{ amount }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660;">Reason</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ reason }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; font-size:14px; color:#5B6660;">Date</td>
+  <td style="padding:12px 20px; font-size:14px; color:#16211D; font-weight:600;">{{ timestamp|date:"F d, Y \a\t g:i A"|default:"Now" }}</td>
+</tr>
 </table>
 
-<div style="text-align: center; margin: 30px 0;">
-    <a href="{{ site_url }}{{ dashboard_url }}" class="btn">View Dashboard</a>
-</div>
+{% include "emails/transactional/_box.html" with variant="warning" title="Didn't expect this?" body="If you don't recognize this activity, contact support right away." %}
 
-<p>You can view your updated wallet balance in your dashboard.</p>
+{% include "emails/transactional/_button.html" with url=dashboard_url label="View wallet" variant="primary" %}
 
-<p>If you have any questions about this transaction, please contact our support team.</p>
-
-<p>Best regards,<br>
-The {{ brand_name }} Team</p>
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name }} Team</p>
 {% endblock %}

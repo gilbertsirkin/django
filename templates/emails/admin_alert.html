@@ -1,29 +1,33 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
 
-{% block title %}Admin Alert - {{ brand_name }}{% endblock %}
+{% block title %}Admin alert — {{ brand_name }}{% endblock %}
+{% block preheader %}An event requires your attention.{% endblock %}
 
 {% block content %}
-<h2>🚨 Admin Alert</h2>
+{% include "emails/transactional/_heading.html" with text="Admin alert" %}
 
-<p>An important event requires your attention in the {{ brand_name }} system.</p>
+<p style="margin:0 0 16px 0;">An event in the {{ brand_name }} system requires attention.</p>
 
-<div class="warning-box">
-    <h3>Alert Details</h3>
-    <p>{{ message }}</p>
-</div>
+{% include "emails/transactional/_box.html" with variant="warning" title="Details" body=message %}
 
-<table class="details-table">
-    <tr>
-        <td>Timestamp:</td>
-        <td>{{ timestamp|date:"F d, Y \a\t g:i A T" }}</td>
-    </tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8FA; border-radius:6px; margin:20px 0;">
+<tr>
+  <td style="padding:12px 20px; font-size:14px; color:#5B6660; width:42%;">Timestamp</td>
+  <td style="padding:12px 20px; font-size:14px; color:#16211D; font-weight:600;">{{ timestamp|date:"F d, Y \a\t g:i A T" }}</td>
+</tr>
 </table>
 
-<div style="text-align: center; margin: 30px 0;">
-    <a href="{{ admin_site_url }}{{ admin_url }}" class="btn btn-warning">Go to Admin Panel</a>
-</div>
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+<tr><td align="center" bgcolor="#E8734A" style="border-radius:6px;">
+<a href="{{ admin_site_url }}{{ admin_url }}" target="_blank" style="display:inline-block; padding:14px 28px; font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:16px; font-weight:600; text-decoration:none; color:#FFFFFF;">Go to admin panel</a>
+</td></tr>
+</table>
 
-<p>Please log in to the admin panel to review and take appropriate action.</p>
+<p style="margin:20px 0 0 0;">{{ brand_name }} System</p>
+{% endblock %}
 
-<p>{{ brand_name }} System</p>
+{% block footer %}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+<tr><td style="font-size:12px; color:#8A938E;">Automated system notification &middot; {{ brand_name }}</td></tr>
+</table>
 {% endblock %}

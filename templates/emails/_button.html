@@ -1,0 +1,15 @@
+{% comment %}
+Usage: {% include "emails/transactional/_button.html" with url=verify_url label="Verify Email Address" variant="primary" %}
+variant: primary (teal) | danger (red) | neutral (outlined)
+{% endcomment %}
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+<tr>
+<td align="center" bgcolor="{% if variant == 'danger' %}#C1443B{% elif variant == 'neutral' %}#FFFFFF{% else %}#1B5FA8{% endif %}"
+    style="border-radius:6px; {% if variant == 'neutral' %}border:1px solid #1B5FA8;{% endif %}">
+  <a href="{{ url }}" target="_blank"
+     style="display:inline-block; padding:14px 28px; font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:16px; font-weight:600; text-decoration:none; color:{% if variant == 'neutral' %}#1B5FA8{% else %}#FFFFFF{% endif %};">
+    {{ label }}
+  </a>
+</td>
+</tr>
+</table>

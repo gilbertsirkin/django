@@ -1,72 +1,43 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
 
-{% block title %}Investment Approved - {{ brand_name }}{% endblock %}
+{% block title %}Investment active — {{ brand_name }}{% endblock %}
+{% block preheader %}Your investment in {{ investment.plan.name }} is now active.{% endblock %}
 
 {% block content %}
-<h2>🎉 Investment Approved</h2>
+{% include "emails/transactional/_heading.html" with text="Investment active" sealed=True %}
 
-<p>Dear {{ user.first_name|default:user.email }},</p>
+<p style="margin:0 0 16px 0;">Hi {{ user.first_name|default:user.email }},</p>
 
-<p>Congratulations! Your investment has been approved and is now active. You'll start earning returns according to your selected plan.</p>
+<p style="margin:0 0 16px 0;">Your investment has been approved and is now active.</p>
 
-<div class="success-box">
-    <h3>Investment Activated</h3>
-    <p>Your investment is now generating returns. Daily payouts will be processed automatically.</p>
-</div>
-
-<table class="details-table">
-    <tr>
-        <td>Investment ID:</td>
-        <td>{{ investment.id }}</td>
-    </tr>
-    <tr>
-        <td>Plan:</td>
-        <td>{{ investment.plan.name }}</td>
-    </tr>
-    <tr>
-        <td>Amount Invested:</td>
-        <td>${{ investment.amount }}</td>
-    </tr>
-    <tr>
-        <td>Daily ROI:</td>
-        <td>{{ investment.plan.daily_roi_percentage }}%</td>
-    </tr>
-    <tr>
-        <td>Duration:</td>
-        <td>{{ investment.plan.duration_days }} days</td>
-    </tr>
-    <tr>
-        <td>Expected Total Return:</td>
-        <td>${{ investment.total_return }}</td>
-    </tr>
-    <tr>
-        <td>Start Date:</td>
-        <td>{{ investment.start_date|date:"F d, Y" }}</td>
-    </tr>
-    <tr>
-        <td>End Date:</td>
-        <td>{{ investment.end_date|date:"F d, Y" }}</td>
-    </tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8FA; border-radius:6px; margin:20px 0;">
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660; width:42%;">Plan</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ investment.plan.name }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660;">Amount</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ investment.amount }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660;">Start date</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ investment.start_date|date:"F d, Y" }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660;">End date</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ investment.end_date|date:"F d, Y" }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; font-size:14px; color:#5B6660;">Projected total return</td>
+  <td style="padding:12px 20px; font-size:14px; color:#16211D; font-weight:600;">{{ investment.total_return }}</td>
+</tr>
 </table>
 
 {% if admin_notes %}
-<div class="info-box">
-    <h3>Admin Notes</h3>
-    <p>{{ admin_notes }}</p>
-</div>
+{% include "emails/transactional/_box.html" with variant="info" title="Note from our team" body=admin_notes %}
 {% endif %}
 
-<h3>What happens next?</h3>
-<p>Starting today, you'll receive daily ROI payments based on your investment plan. These payments will be automatically credited to your wallet once approved by our admin team.</p>
+{% include "emails/transactional/_button.html" with url=dashboard_url label="View in dashboard" variant="primary" %}
 
-<div style="text-align: center; margin: 30px 0;">
-    <a href="{{ site_url }}{{ dashboard_url }}" class="btn">View Dashboard</a>
-</div>
-
-<p>You can track your investment progress and daily returns in your dashboard.</p>
-
-<p>Thank you for investing with {{ brand_name }}!</p>
-
-<p>Best regards,<br>
-The {{ brand_name }} Team</p>
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name }} Team</p>
 {% endblock %}

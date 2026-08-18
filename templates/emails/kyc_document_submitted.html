@@ -1,36 +1,16 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
 
-{% block title %}KYC Document Submitted - {{ brand_name }}{% endblock %}
+{% block title %}Document received — {{ brand_name }}{% endblock %}
+{% block preheader %}We received your {{ document.get_document_type_display|lower }}.{% endblock %}
 
 {% block content %}
-<h2>📄 Document Received</h2>
+{% include "emails/transactional/_heading.html" with text="Document received" %}
 
-<p>Dear {{ user.first_name|default:user.email }},</p>
+<p style="margin:0 0 16px 0;">Hi {{ user.first_name|default:user.email }},</p>
 
-<p>Thank you for uploading your {{ document.get_document_type_display|lower }}. The document has been attached to your KYC application and is now under review.</p>
+<p style="margin:0 0 16px 0;">We received your {{ document.get_document_type_display|lower }} on {{ document.submitted_at|date:"F d, Y \a\t g:i A"|default:"Today" }} and it's now under review.</p>
 
-<div class="info-box">
-    <h3>Document Uploaded</h3>
-    <p>Your document is in queue for our compliance team's review.</p>
-</div>
+{% include "emails/transactional/_box.html" with variant="info" title="What's next" body="You'll get an email once this document has been reviewed." %}
 
-<table class="details-table">
-    <tr>
-        <td>Document Type:</td>
-        <td>{{ document.get_document_type_display }}</td>
-    </tr>
-    <tr>
-        <td>Submitted:</td>
-        <td>{{ document.submitted_at|date:"F d, Y \a\t g:i A"|default:"Today" }}</td>
-    </tr>
-</table>
-
-<p>We'll notify you once this document is approved or if more information is required.</p>
-
-<div style="text-align: center; margin: 30px 0;">
-    <a href="{{ site_url }}/dashboard/kyc/" style="display: inline-block; padding: 14px 28px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">View KYC Status</a>
-</div>
-
-<p>Thank you for using {{ brand_name }}!</p>
-<p>Best regards,<br>The {{ brand_name }} Team</p>
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name }} Team</p>
 {% endblock %}

@@ -1,0 +1,16 @@
+Transaction not approved — {{ brand_name }}
+
+Hi {{ user.first_name|default:user.email }},
+
+Your {{ transaction.get_transaction_type_display|lower }} request could not be approved.
+
+Type: {{ transaction.get_transaction_type_display }}
+Amount: {{ transaction.amount }}
+{% if admin_notes %}Reason: {{ admin_notes }}{% endif %}
+
+If you believe this is a mistake, reply to this email or contact support.
+
+View in dashboard: {{ dashboard_url }}
+
+Best,
+The {{ brand_name }} Team

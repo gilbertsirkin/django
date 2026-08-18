@@ -1,0 +1,20 @@
+{% comment %}
+Usage: {% include "emails/transactional/_heading.html" with text="Email verified" sealed=True %}
+sealed=True adds the teal check-seal — use only for confirmed/completed states
+(verification success, KYC approved, transaction approved, payout sent).
+Leave sealed unset/False for neutral or pending states.
+{% endcomment %}
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px 0;">
+<tr>
+{% if sealed %}
+<td width="36" style="padding-right:10px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="32" height="32" style="background-color:#1B5FA8; border-radius:50%;">
+  <tr><td align="center" valign="middle" style="width:32px; height:32px; font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:16px; font-weight:700; color:#FFFFFF;">&#10003;</td></tr>
+  </table>
+</td>
+{% endif %}
+<td style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:22px; font-weight:700; color:#16211D;">
+  {{ text }}
+</td>
+</tr>
+</table>

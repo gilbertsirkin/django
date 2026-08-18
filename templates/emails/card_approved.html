@@ -1,9 +1,23 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
+
+{% block title %}Card request approved — {{ brand_name }}{% endblock %}
+{% block preheader %}Your virtual card request has been approved.{% endblock %}
+
 {% block content %}
-<h2>Virtual Card Approved</h2>
-<p>Your virtual card request has been approved.</p>
-<p>Card ID: {{ card.id }}<br>
-Amount Authorized: ${{ card.purchase_amount }}</p>
-<p>You can now use the card details (delivered securely) for transactions.</p>
-<p>Regards,<br>{{ brand_name }} Team</p>
+{% include "emails/transactional/_heading.html" with text="Card request approved" sealed=True %}
+
+<p style="margin:0 0 16px 0;">Your virtual card request has been approved and funded.</p>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8FA; border-radius:6px; margin:20px 0;">
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660; width:42%;">Card ID</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ card.id }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; font-size:14px; color:#5B6660;">Amount</td>
+  <td style="padding:12px 20px; font-size:14px; color:#16211D; font-weight:600;">{{ card.purchase_amount }}</td>
+</tr>
+</table>
+
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name }} Team</p>
 {% endblock %}

@@ -1,32 +1,24 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
 
-{% block title %}KYC Approved - {{ brand_name }}{% endblock %}
+{% block title %}Identity verified — {{ brand_name }}{% endblock %}
+{% block preheader %}Your identity verification is complete.{% endblock %}
 
 {% block content %}
-<h2 style="color: #10B981;">✅ KYC Application Approved</h2>
+{% include "emails/transactional/_heading.html" with text="Identity verified" sealed=True %}
 
-<p>Dear {{ user.first_name|default:user.email }},</p>
+<p style="margin:0 0 16px 0;">Hi {{ user.first_name|default:user.email }},</p>
 
-<p>We're happy to let you know that your KYC application has been approved! You now have full access to all features.</p>
+<p style="margin:0 0 16px 0;">Your identity verification is complete as of {{ application.reviewed_at|date:"F d, Y \a\t g:i A" }}. Deposits and withdrawals are now fully unlocked on your account.</p>
 
-<table class="details-table">
-    <tr>
-        <td>Approved On:</td>
-        <td>{{ application.reviewed_at|date:"F d, Y \a\t g:i A" }}</td>
-    </tr>
-    {% if notes %}
-    <tr>
-        <td>Notes:</td>
-        <td>{{ notes }}</td>
-    </tr>
-    {% endif %}
+{% if notes %}
+{% include "emails/transactional/_box.html" with variant="info" title="Note from our team" body=notes %}
+{% endif %}
+
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+<tr><td align="center" bgcolor="#1B5FA8" style="border-radius:6px;">
+<a href="{{ site_url }}/dashboard/" target="_blank" style="display:inline-block; padding:14px 28px; font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:16px; font-weight:600; text-decoration:none; color:#FFFFFF;">Go to your dashboard</a>
+</td></tr>
 </table>
 
-<p>Thank you for providing the required information. If you have any questions, feel free to reach out via support.</p>
-
-<div style="text-align: center; margin: 30px 0;">
-    <a href="{{ site_url }}/dashboard/" style="display: inline-block; padding: 14px 28px; background-color: #10B981; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">Go to Dashboard</a>
-</div>
-
-<p>Best regards,<br>The {{ brand_name }} Team</p>
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name }} Team</p>
 {% endblock %}

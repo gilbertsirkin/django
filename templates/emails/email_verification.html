@@ -1,36 +1,25 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
 
-{% block title %}Verify Your Email - {{ brand_name|escape }}{% endblock %}
+{% block title %}Verify your email — {{ brand_name|escape }}{% endblock %}
+{% block preheader %}Confirm your email address to activate your {{ brand_name|escape }} account.{% endblock %}
 
 {% block content %}
-<h2 style="color: #2196F3; font-size: 24px; font-weight: 600; margin: 0 0 20px 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Verify Your Email Address</h2>
+{% include "emails/transactional/_heading.html" with text="Verify your email address" %}
 
-<p style="font-size: 16px; margin: 0 0 20px 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #333333; line-height: 1.6;">Hello!</p>
+<p style="margin:0 0 16px 0;">Hello,</p>
 
-<p style="font-size: 16px; margin: 0 0 20px 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #333333; line-height: 1.6;">Thank you for signing up with {{ brand_name|escape }}! To complete your registration and activate your account, please verify your email address by clicking the button below.</p>
+<p style="margin:0 0 16px 0;">Thanks for signing up with {{ brand_name|escape }}. Confirm your email address to activate your account.</p>
 
-<div style="background-color: #f0f9f5; border-left: 4px solid #10B981; padding: 20px; margin: 25px 0; border-radius: 0 6px 6px 0;">
-    <h3 style="color: #444444; font-size: 18px; font-weight: 600; margin: 0 0 15px 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">🔐 Security Notice</h3>
-    <p style="font-size: 16px; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #333333; line-height: 1.6;">This verification link will expire in 2 hours for your security.</p>
-</div>
+{% include "emails/transactional/_button.html" with url=verify_url label="Verify email address" variant="primary" %}
 
-<div style="text-align: center; margin: 30px 0;">
-    <a href="{{ verify_url }}" style="display: inline-block; padding: 16px 32px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 18px; margin: 10px 5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Verify Email Address</a>
-</div>
+{% include "emails/transactional/_box.html" with variant="info" title="This link expires in 2 hours" body="For your security, you'll need to request a new link if this one expires." %}
 
-<p style="font-size: 14px; margin: 0 0 20px 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #666666; line-height: 1.6;">Or copy and paste this link into your browser:</p>
+<p style="margin:20px 0 8px 0; font-size:14px; color:#5B6660;">Or paste this link into your browser:</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8FA; border-radius:6px; margin:0 0 20px 0;">
+<tr><td style="padding:14px 16px; font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:13px; color:#1B5FA8; word-break:break-all;">{{ verify_url }}</td></tr>
+</table>
 
-<div style="background-color: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 6px; word-break: break-all;">
-    <code style="font-size: 14px; font-family: 'Courier New', monospace; color: #2196F3;">{{ verify_url }}</code>
-</div>
+{% include "emails/transactional/_box.html" with variant="warning" title="Didn't sign up?" body="If you didn't create this account, you can safely ignore this email, or contact support if you have concerns." %}
 
-<div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; margin: 25px 0; border-radius: 0 6px 6px 0;">
-    <h3 style="color: #856404; font-size: 18px; font-weight: 600; margin: 0 0 15px 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">⚠️ Didn't sign up?</h3>
-    <p style="font-size: 16px; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #856404; line-height: 1.6;">If you didn't create an account with {{ brand_name|escape }}, please ignore this email or contact our support team if you have concerns.</p>
-</div>
-
-<p style="font-size: 16px; margin: 0 0 20px 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #333333; line-height: 1.6;">Once verified, you'll be able to log in and start exploring our investment opportunities!</p>
-
-<p style="font-size: 16px; margin: 0 0 20px 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #333333; line-height: 1.6;">Best regards,<br>
-The {{ brand_name|escape }} Team</p>
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name|escape }} Team</p>
 {% endblock %}

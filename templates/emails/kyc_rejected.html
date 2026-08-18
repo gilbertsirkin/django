@@ -1,28 +1,26 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
 
-{% block title %}KYC Application Rejected - {{ brand_name }}{% endblock %}
+{% block title %}Verification needs attention — {{ brand_name }}{% endblock %}
+{% block preheader %}We couldn't approve your identity verification.{% endblock %}
 
 {% block content %}
-<h2 style="color: #EF4444;">❌ KYC Application Rejected</h2>
+{% include "emails/transactional/_heading.html" with text="Verification needs attention" %}
 
-<p>Dear {{ user.first_name|default:user.email }},</p>
+<p style="margin:0 0 16px 0;">Hi {{ user.first_name|default:user.email }},</p>
 
-<p>Unfortunately, after reviewing your KYC application, we were unable to approve it at this time.</p>
+<p style="margin:0 0 16px 0;">We weren't able to approve your identity verification submission.</p>
 
 {% if notes %}
-<div class="warning-box">
-    <h3 style="color: #F59E0B;">Review Notes</h3>
-    <p>{{ notes }}</p>
-</div>
+{% include "emails/transactional/_box.html" with variant="danger" title="Reason" body=notes %}
 {% endif %}
 
-<p>You may resubmit your information or upload new documents if necessary. Visit the KYC section of your dashboard to make changes.</p>
+<p style="margin:16px 0;">You can resubmit your documents at any time from your dashboard.</p>
 
-<div style="text-align: center; margin: 30px 0;">
-    <a href="{{ site_url }}/dashboard/kyc/" style="display: inline-block; padding: 14px 28px; background-color: #F59E0B; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">Manage KYC</a>
-</div>
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+<tr><td align="center" bgcolor="#1B5FA8" style="border-radius:6px;">
+<a href="{{ site_url }}/dashboard/" target="_blank" style="display:inline-block; padding:14px 28px; font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:16px; font-weight:600; text-decoration:none; color:#FFFFFF;">Resubmit verification</a>
+</td></tr>
+</table>
 
-<p>We're here to help if you need assistance.</p>
-
-<p>Best regards,<br>The {{ brand_name }} Team</p>
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name }} Team</p>
 {% endblock %}

@@ -1,58 +1,41 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
 
-{% block title %}Transaction Submitted - {{ brand_name }}{% endblock %}
+{% block title %}Transaction received — {{ brand_name }}{% endblock %}
+{% block preheader %}We received your {{ transaction.get_transaction_type_display|lower }} request.{% endblock %}
 
 {% block content %}
-<h2>📋 Transaction Submitted</h2>
+{% include "emails/transactional/_heading.html" with text="Transaction received" %}
 
-<p>Dear {{ user.first_name|default:user.email }},</p>
+<p style="margin:0 0 16px 0;">Hi {{ user.first_name|default:user.email }},</p>
 
-<p>Your {{ transaction.get_transaction_type_display|lower }} request has been submitted successfully and is now under review.</p>
+<p style="margin:0 0 16px 0;">We received your {{ transaction.get_transaction_type_display|lower }} request and it's now pending review.</p>
 
-<div class="info-box">
-    <h3>Transaction Under Review</h3>
-    <p>Our admin team will review your request and process it within 24-48 hours.</p>
-</div>
-
-<table class="details-table">
-    <tr>
-        <td>Transaction ID:</td>
-        <td>{{ transaction.id }}</td>
-    </tr>
-    <tr>
-        <td>Type:</td>
-        <td>{{ transaction.get_transaction_type_display }}</td>
-    </tr>
-    <tr>
-        <td>Amount:</td>
-        <td>${{ transaction.amount }}</td>
-    </tr>
-    <tr>
-        <td>Payment Method:</td>
-        <td>{{ transaction.get_payment_method_display }}</td>
-    </tr>
-    <tr>
-        <td>Reference:</td>
-        <td>{{ transaction.reference }}</td>
-    </tr>
-    <tr>
-        <td>Status:</td>
-        <td><strong style="color: #F59E0B;">Pending Review</strong></td>
-    </tr>
-    <tr>
-        <td>Submitted:</td>
-        <td>{{ transaction.created_at|date:"F d, Y \a\t g:i A" }}</td>
-    </tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8FA; border-radius:6px; margin:20px 0;">
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660; width:38%;">Type</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ transaction.get_transaction_type_display }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660;">Amount</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ transaction.amount }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660;">Payment method</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ transaction.get_payment_method_display }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660;">Reference</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ transaction.reference }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; font-size:14px; color:#5B6660;">Submitted</td>
+  <td style="padding:12px 20px; font-size:14px; color:#16211D; font-weight:600;">{{ transaction.created_at|date:"F d, Y \a\t g:i A" }}</td>
+</tr>
 </table>
 
-<div style="text-align: center; margin: 30px 0;">
-    <a href="{{ site_url }}{{ dashboard_url }}" class="btn">View Dashboard</a>
-</div>
+{% include "emails/transactional/_box.html" with variant="info" title="What's next" body="Our team reviews transactions during business hours. You'll get another email as soon as it's approved." %}
 
-<p>You'll receive another notification once your transaction has been reviewed.</p>
+{% include "emails/transactional/_button.html" with url=dashboard_url label="View in dashboard" variant="primary" %}
 
-<p>Thank you for using {{ brand_name }}!</p>
-
-<p>Best regards,<br>
-The {{ brand_name }} Team</p>
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name }} Team</p>
 {% endblock %}

@@ -1,0 +1,15 @@
+{% comment %}
+Usage: {% include "emails/transactional/_box.html" with variant="info" title="Security notice" body="This link expires in 2 hours." %}
+variant: info (teal tint) | warning (coral tint) | danger (red tint)
+{% endcomment %}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+  style="background-color:{% if variant == 'warning' %}#FDF0EA{% elif variant == 'danger' %}#FBEDEC{% else %}#EAF1FA{% endif %}; border-radius:6px; margin:20px 0;">
+<tr>
+<td style="padding:18px 20px; border-left:3px solid {% if variant == 'warning' %}#E8734A{% elif variant == 'danger' %}#C1443B{% else %}#1B5FA8{% endif %};">
+  {% if title %}
+  <div style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:14px; font-weight:700; color:#16211D; margin-bottom:6px;">{{ title }}</div>
+  {% endif %}
+  <div style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:14px; color:#3C4740; line-height:1.55;">{{ body }}</div>
+</td>
+</tr>
+</table>

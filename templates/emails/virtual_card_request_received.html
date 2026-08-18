@@ -1,9 +1,23 @@
-{% extends "emails/base_email.html" %}
+{% extends "emails/transactional/base.html" %}
+
+{% block title %}Card request received — {{ brand_name }}{% endblock %}
+{% block preheader %}We received your virtual card request.{% endblock %}
+
 {% block content %}
-<h2>Virtual Card Request Received</h2>
-<p>We received your virtual card request for {{ amount }}.</p>
-<p>Request ID: {{ card_id }}</p>
-<p>Our team will review and notify you once approved.</p>
-<p>Track status in your dashboard.</p>
-<p>Regards,<br>{{ brand_name }} Support</p>
+{% include "emails/transactional/_heading.html" with text="Card request received" %}
+
+<p style="margin:0 0 16px 0;">We received your virtual card request and it's now pending review.</p>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8FA; border-radius:6px; margin:20px 0;">
+<tr>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#5B6660; width:42%;">Card ID</td>
+  <td style="padding:12px 20px; border-bottom:1px solid #E2E6E3; font-size:14px; color:#16211D; font-weight:600;">{{ card_id }}</td>
+</tr>
+<tr>
+  <td style="padding:12px 20px; font-size:14px; color:#5B6660;">Amount</td>
+  <td style="padding:12px 20px; font-size:14px; color:#16211D; font-weight:600;">{{ amount }}</td>
+</tr>
+</table>
+
+<p style="margin:20px 0 0 0;">Best,<br>The {{ brand_name }} Team</p>
 {% endblock %}

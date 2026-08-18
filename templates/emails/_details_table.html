@@ -1,0 +1,14 @@
+{% comment %}
+Usage:
+{% include "emails/transactional/_details_table.html" with rows=rows %}
+where `rows` is a list of (label, value) tuples built in the view, e.g.:
+rows = [("Amount", "$500.00"), ("Reference", transaction.reference), ("Date", transaction.created_at)]
+{% endcomment %}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8FA; border-radius:6px; margin:20px 0;">
+{% for label, value in rows %}
+<tr>
+  <td style="padding:12px 20px; {% if not forloop.last %}border-bottom:1px solid #E2E6E3;{% endif %} font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:14px; color:#5B6660; width:38%; vertical-align:top;">{{ label }}</td>
+  <td style="padding:12px 20px; {% if not forloop.last %}border-bottom:1px solid #E2E6E3;{% endif %} font-family:Helvetica Neue, Helvetica, Arial, sans-serif; font-size:14px; color:#16211D; font-weight:600; vertical-align:top;">{{ value }}</td>
+</tr>
+{% endfor %}
+</table>
