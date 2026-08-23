@@ -34,6 +34,12 @@ class EmailService:
         "TEST": "test",
     }
 
+    # Templates under emails/marketing/ — everything else defaults to transactional/
+    TEMPLATE_CATEGORY = {
+        # currently everything lives under transactional/; add entries here
+        # only if/when templates are actually moved into marketing/
+    }
+
     # --- Deferred user model ---
     @classmethod
     def get_user_model(cls):
@@ -71,8 +77,9 @@ class EmailService:
         ctx.setdefault("brand_config", getattr(settings, "BRAND", {}))
         ctx.setdefault("BRAND", getattr(settings, "BRAND", {}))
 
-        html_template = f"emails/{template_name}.html"
-        text_template = f"emails/{template_name}.txt"
+        category = cls.TEMPLATE_CATEGORY.get(template_name, "transactional")
+        html_template = f"emails/{category}/{template_name}.html"
+        text_template = f"emails/{category}/{template_name}.txt"
 
         try:
             html_content: str = render_to_string(html_template, ctx)
