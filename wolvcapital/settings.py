@@ -815,6 +815,10 @@ SITE_URL = str(SITE_URL)
 
 ADMIN_SITE_URL = os.getenv("ADMIN_SITE_URL", SITE_URL)
 
+# Account maturity win-back is opt-in at deployment time. Keep disabled until
+# a dry-run recipient report has been reviewed and approved.
+MATURITY_WINBACK_ENABLED = os.getenv("MATURITY_WINBACK_ENABLED", "false").lower() == "true"
+
 # ------------------------------------------------------------------
 # Business Email Inbox Configuration (IMAP)
 # ------------------------------------------------------------------

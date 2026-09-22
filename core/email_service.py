@@ -36,8 +36,7 @@ class EmailService:
 
     # Templates under emails/marketing/ — everything else defaults to transactional/
     TEMPLATE_CATEGORY = {
-        # currently everything lives under transactional/; add entries here
-        # only if/when templates are actually moved into marketing/
+        "account-maturity": "winback",
     }
 
     # --- Deferred user model ---

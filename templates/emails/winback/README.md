@@ -6,7 +6,7 @@ This directory contains **six drafts**: three campaign tracks, each with an HTML
 - `feature-updates.html` and `.txt`: verified protocol and feature updates.
 - `security-checkin.html` and `.txt`: security and compliance check-in.
 
-The templates are drafts only. They do not activate sending or change the existing cron/management-command behavior.
+The maturity track is now wired to `python manage.py maturity_winback --send` and added to the daily Railway schedule at 01:30 UTC. Sending remains disabled until the deployment environment sets `MATURITY_WINBACK_ENABLED=true`.
 
 ## Existing backend integration
 
@@ -19,6 +19,8 @@ When wiring these drafts into a campaign task, pass the recipient as `user`, and
 - Feature updates: an approved `updates` list containing `title`, `summary`, and optional `url`.
 - Security: `security.action_name`, `security.action_summary`, and `security.action_url`.
 
-The current email service supplies `brand_name`, `support_email`, and `site_url` by default, so the campaign adapter should either map those names into the template context or standardize the templates before activation. Account-level email consent, verified addresses, unsubscribe status, bounce suppression, and deduplication must be enforced by the campaign query.
+The command applies a 30-day inactivity threshold, requires an active account, verified email, enabled master notifications, and enabled investment emails. It records one delivery ledger row per completed investment, supports `--dry-run`, and refuses to send unless `MATURITY_WINBACK_ENABLED=true`. The existing email service supplies `brand_name`, `support_email`, and `site_url`; the command maps the remaining branded context values.
+
+Run `python manage.py maturity_winback --dry-run` first. Use `--limit` for a controlled rollout. The Railway cron invokes `--send`, but the feature flag is deliberately off until the dry-run recipient count and list have been reviewed.
 
 Do not populate the feature-update template with unverified claims about audits, DEX listings, yields, withdrawals, or compliance. Do not send maturity figures unless they are read from the authoritative investment records.

@@ -6,3 +6,8 @@ schedule = "0 1 * * *"
 [[crons]]
 command = "python manage.py payout_roi"
 schedule = "0 2 * * *"
+
+[[crons]]
+# The command remains a no-op until MATURITY_WINBACK_ENABLED=true is set.
+command = "python manage.py maturity_winback --send"
+schedule = "30 1 * * *"

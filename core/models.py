@@ -369,3 +369,23 @@ class CampaignAnnouncement(models.Model):
         if not self.is_published or self.publish_at > now:
             return False
         return not self.expires_at or self.expires_at >= now
+
+
+class MaturityWinbackDelivery(models.Model):
+    """One immutable send ledger row per completed investment maturity email."""
+
+    investment = models.OneToOneField(
+        "investments.UserInvestment",
+        on_delete=models.CASCADE,
+        related_name="maturity_winback_delivery",
+    )
+    recipient_email = models.EmailField()
+    sent_at = models.DateTimeField(default=timezone.now)
+    subject = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ["-sent_at"]
+        indexes = [models.Index(fields=["recipient_email", "-sent_at"])]
+
+    def __str__(self) -> str:
+        return f"Maturity win-back for investment {self.investment_id} to {self.recipient_email}"
