@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>What’s new at {{ company_name }}</title></head>
+<body style="margin:0;background:#f5f7fb;color:#172033;font-family:Arial,Helvetica,sans-serif;line-height:1.6;">
+  <div style="max-width:640px;margin:0 auto;padding:24px 16px;">
+    <div style="background:#0b2f6b;padding:24px;border-radius:16px 16px 0 0;color:#fff;"><div style="font-size:20px;font-weight:700;">{{ company_name }}</div><div style="margin-top:8px;color:#d9e7ff;font-size:14px;">Platform update</div></div>
+    <main style="background:#fff;padding:32px 24px;border-radius:0 0 16px 16px;">
+      <p style="margin-top:0;">Hello {{ user.first_name }},</p>
+      <h1 style="font-size:26px;line-height:1.25;color:#0b2f6b;margin:0 0 16px;">A few updates you may have missed</h1>
+      <p>We have made recent changes to the WolvCapital platform. Here is a concise summary of the updates relevant to your account:</p>
+      <div style="margin:24px 0;">
+        {% for update in updates %}
+        <div style="border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin-bottom:12px;"><h2 style="font-size:17px;color:#0b2f6b;margin:0 0 6px;">{{ update.title }}</h2><p style="margin:0;color:#475569;">{{ update.summary }}</p>{% if update.url %}<p style="margin:10px 0 0;"><a href="{{ update.url }}" style="color:#2563eb;font-weight:700;">Read the details</a></p>{% endif %}</div>
+        {% endfor %}
+      </div>
+      <p>Sign in to review the current platform information and account notices.</p>
+      <p style="margin:28px 0;"><a href="{{ dashboard_url }}" style="display:inline-block;background:#2563eb;color:#fff;text-decoration:none;font-weight:700;padding:13px 20px;border-radius:8px;">Open your dashboard</a></p>
+      <p style="font-size:13px;color:#64748b;">Only verified platform changes should appear in this message. Availability may vary by account, jurisdiction, and applicable terms. This email is informational and is not financial advice.</p>
+      <p>Regards,<br>{{ company_name }}</p>
+    </main>
+    <footer style="padding:20px 8px;color:#64748b;font-size:12px;text-align:center;"><a href="{{ preferences_url }}" style="color:#64748b;">Manage email preferences</a> · <a href="{{ unsubscribe_url }}" style="color:#64748b;">Unsubscribe</a><br>{{ company_name }} · {{ company_address }}</footer>
+  </div>
+</body>
+</html>

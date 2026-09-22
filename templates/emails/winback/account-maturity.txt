@@ -1,0 +1,25 @@
+Subject: Your {{ maturity.plan_name }} term has matured
+
+Hello {{ user.first_name }},
+
+Your {{ maturity.plan_name }} term reached its maturity date on {{ maturity.maturity_date }}.
+
+Account summary:
+- Principal: {{ maturity.principal }} {{ maturity.currency }}
+- Accrued yield: {{ maturity.accrued_yield }} {{ maturity.currency }}
+- Matured balance: {{ maturity.total_balance }} {{ maturity.currency }}
+
+Please sign in to review the current details and choose the option that suits you. You may review available rollover terms or request a withdrawal, subject to the applicable platform terms and processing requirements.
+
+Review your dashboard: {{ dashboard_url }}
+Review rollover options: {{ maturity.rollover_url }}
+Request or review withdrawal: {{ maturity.withdraw_url }}
+
+This message is informational. It does not constitute financial advice or a guarantee of future returns. Review the dashboard record and applicable terms before taking action. If the figures above do not match your account, contact support: {{ support_url }}
+
+Regards,
+{{ company_name }}
+{{ company_address }}
+
+Manage email preferences: {{ preferences_url }}
+Unsubscribe: {{ unsubscribe_url }}

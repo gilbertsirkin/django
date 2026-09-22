@@ -1,0 +1,23 @@
+Subject: What’s new at {{ company_name }}
+
+Hello {{ user.first_name }},
+
+We have made recent changes to the WolvCapital platform. Here is a concise summary of the updates relevant to your account:
+
+{% for update in updates %}
+{{ update.title }}
+{{ update.summary }}
+{% if update.url %}Details: {{ update.url }}{% endif %}
+
+{% endfor %}
+Sign in to review the current platform information and account notices:
+{{ dashboard_url }}
+
+Only verified platform changes should appear in this message. Availability may vary by account, jurisdiction, and applicable terms. This email is informational and is not financial advice.
+
+Regards,
+{{ company_name }}
+{{ company_address }}
+
+Manage email preferences: {{ preferences_url }}
+Unsubscribe: {{ unsubscribe_url }}

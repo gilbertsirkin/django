@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Review your account security</title></head>
+<body style="margin:0;background:#f5f7fb;color:#172033;font-family:Arial,Helvetica,sans-serif;line-height:1.6;">
+  <div style="max-width:640px;margin:0 auto;padding:24px 16px;">
+    <div style="background:#0b2f6b;padding:24px;border-radius:16px 16px 0 0;color:#fff;"><div style="font-size:20px;font-weight:700;">{{ company_name }}</div><div style="margin-top:8px;color:#d9e7ff;font-size:14px;">Security and account check-in</div></div>
+    <main style="background:#fff;padding:32px 24px;border-radius:0 0 16px 16px;">
+      <p style="margin-top:0;">Hello {{ user.first_name }},</p>
+      <h1 style="font-size:26px;line-height:1.25;color:#0b2f6b;margin:0 0 16px;">Review your account security</h1>
+      <p>We are checking in because there is an account action available for you:</p>
+      <div style="border:1px solid #bfdbfe;background:#eff6ff;border-radius:12px;padding:18px;margin:24px 0;"><h2 style="font-size:18px;color:#0b2f6b;margin:0 0 6px;">{{ security.action_name }}</h2><p style="margin:0;color:#475569;">{{ security.action_summary }}</p></div>
+      <p>Sign in through the official WolvCapital website to review the request. Do not share your password, one-time codes, recovery phrase, or private keys with anyone. If you did not expect this notice, contact support before taking action.</p>
+      <p style="margin:28px 0;"><a href="{{ security.action_url }}" style="display:inline-block;background:#2563eb;color:#fff;text-decoration:none;font-weight:700;padding:13px 20px;border-radius:8px;">Review security settings</a></p>
+      <p style="font-size:13px;color:#64748b;">This message does not change your account settings and does not request sensitive credentials by email. Availability of security and verification features may vary by account and jurisdiction.</p>
+      <p>Regards,<br>{{ company_name }}</p>
+    </main>
+    <footer style="padding:20px 8px;color:#64748b;font-size:12px;text-align:center;"><a href="{{ preferences_url }}" style="color:#64748b;">Manage email preferences</a> · <a href="{{ unsubscribe_url }}" style="color:#64748b;">Unsubscribe</a><br>{{ company_name }} · {{ company_address }}</footer>
+  </div>
+</body>
+</html>

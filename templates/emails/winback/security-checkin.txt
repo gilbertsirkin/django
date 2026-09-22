@@ -1,0 +1,21 @@
+Subject: Review your account security
+
+Hello {{ user.first_name }},
+
+We are checking in because there is an account action available for you:
+
+{{ security.action_name }}
+{{ security.action_summary }}
+
+Sign in through the official WolvCapital website to review the request. Do not share your password, one-time codes, recovery phrase, or private keys with anyone. If you did not expect this notice, contact support before taking action.
+
+Review security settings: {{ security.action_url }}
+
+This message does not change your account settings and does not request sensitive credentials by email. Availability of security and verification features may vary by account and jurisdiction.
+
+Regards,
+{{ company_name }}
+{{ company_address }}
+
+Manage email preferences: {{ preferences_url }}
+Unsubscribe: {{ unsubscribe_url }}
